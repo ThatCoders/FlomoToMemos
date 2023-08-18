@@ -51,9 +51,10 @@ def upFile(filePath):
     return response.json()
 
 
-def upMemo(msg, resourceIdList):
+def upMemo(ct, msg, resourceIdList):
     headers = Headers
     data = {
+        'createdTs': ct,
         'content': msg,
         'visibility': 'PRIVATE',
     }
