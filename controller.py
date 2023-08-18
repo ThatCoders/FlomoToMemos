@@ -29,8 +29,9 @@ def add():
 
         # 内容处理
         if resourceIdList is not None or flomo['content'] != "None":
-            msg = "\n".join(flomo['content']) + "\n\n" + flomo['time']
-            msgObject = upMemo(msg, resourceIdList)
+            ct = datetime.strptime(flomo['time'], "%Y-%m-%d %H:%M:%S").timestamp()
+            msg = "\n".join(flomo['content'])
+            msgObject = upMemo(ct, msg, resourceIdList)
             time.sleep(0.5)
             print(f'已完成 {flomo["time"]}')
 
