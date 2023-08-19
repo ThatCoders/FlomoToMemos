@@ -19,7 +19,8 @@
 2. 将下载后的文件放进 `flomo` 文件夹![img_1.png](static/img_1.png)
 3. 安装依赖
 4. **修改 `memos/api.py` 的 `Host` 参数**
-5. **登入你的 memos站点 将请求头 `cookie` 的值全部复制到 `Cookie.txt`** (因为apikey的请求不能添加附件, 只能这样)
-6. 运行 `servicer.py` 生成json
-7. 运行 `controller.py` 将内容和图片附件上传到 memos (图片等附件多的建议先在memos配置对象储存)
-8. 如何不满意可以运行 `controller.py` 的 `delete()` 方法, 删除上传内容, 再去资源库一键清空未使用图片 , 再**自定义代码** !
+5. `memos/api.py`第9、10行有不同版本api, 注意按需切换。
+6. **登入你的 memos站点 将请求头 `cookie` 的值全部复制到 `Cookie.txt`** (因为apikey的请求不能添加附件, 只能这样)
+7. 运行 `servicer.py` 生成json
+8. 运行 `controller.py` 将内容和图片附件上传到 memos (图片等附件多的建议先在memos配置对象储存)
+9. 如何不满意可以运行 `controller.py` 的 `delete()` 方法, 删除上传内容, 再去资源库一键清空未使用图片 , 再**自定义代码** !
