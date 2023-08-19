@@ -36,12 +36,12 @@ Headers = {
 
 def upFile(filePath):
     boundary = '----ThatCoder.cn'  # 切片标识符
-    fileName = filePath.split('/')[-1]
+    file_name, file_ext = os.path.splitext(filePath.split('/')[-1])
     with open("flomo/" + filePath, "rb") as f:  # 读取二进制文件内容
         file_data = f.read()
     # payload的encode()一个也不能删!!!
     payload = f'--{boundary}\r\nContent-Disposition: form-data; name="file";'.encode()
-    payload += f'filename="{fileName}"\r\nContent-Type: {getType(fileName)}\r\n\r\n'.encode()
+    payload += f'filename="{fileName}"\r\nContent-Type: {getType(file_ext)}\r\n\r\n'.encode()
     payload += file_data
     payload += f'\r\n--{boundary}--'.encode()
     headers = Headers
