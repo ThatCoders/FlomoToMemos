@@ -3,10 +3,11 @@ import requests
 from memos.util import getType
 
 # 需要修改 Host 与 Cookie.txt
-Host = 'http://xxxxxx'  # 改成你的网址 结尾不要斜杠 例如: https://thatcoder.cn
+Host = 'http://xxxxxx'  # 改成你的网址 结尾不要斜杠 例如: https://memos.thatcoder.cn
 # UserName = 'root'  # 登入账号
 # PassWord = '123456'   # 登入密码
-ApiBase = f'{Host}/api'
+# ApiBase = f'{Host}/api' # 0.12左右的版本
+ApiBase = f'{Host}/api/v1'  # 0.14之后的版本
 ApiSignIn = ApiBase + '/auth/signin'
 ApiBlob = ApiBase + '/resource/blob'
 ApiMemo = ApiBase + '/memo'
