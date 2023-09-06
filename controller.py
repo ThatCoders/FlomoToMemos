@@ -1,5 +1,6 @@
 import json
 import time
+from datetime import datetime
 
 from memos.api import upFile, upMemo, deleteMemo
 from memos.util import timeToUnix
@@ -25,7 +26,7 @@ def add():
             for f in flomo['filePath']:
                 fileObject = upFile(f)
                 time.sleep(1.5)
-                resourceIdList.append(fileObject['data']['id'])
+                resourceIdList.append(fileObject['id'])
 
         # 内容处理
         if resourceIdList is not None or flomo['content'] != "None":
