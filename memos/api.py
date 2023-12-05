@@ -1,5 +1,6 @@
 import os
 import requests
+import time
 from memos.util import getType
 
 # 需要修改 Host 与 Cookie.txt
@@ -38,6 +39,8 @@ Headers = {
 def upFile(filePath):
     boundary = '----ThatCoder.cn'  # 切片标识符
     file_name, file_ext = os.path.splitext(filePath.split('/')[-1])
+    # 定义默认文件名
+    fileName = file_name if file_name else f'匿名文件_{int(time.time())}'
     with open("flomo/" + filePath, "rb") as f:  # 读取二进制文件内容
         file_data = f.read()
     # payload的encode()一个也不能删!!!
