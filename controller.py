@@ -20,7 +20,7 @@ def add():
         # unix = timeToUnix(flomo['time'])
 
         # 文件处理
-        resourceIdList = None
+        resourceIdList = []
         if flomo['filePath'] != "None":
             resourceIdList = []
             for f in flomo['filePath']:
@@ -29,8 +29,8 @@ def add():
                 resourceIdList.append(fileObject['id'])
 
         # 内容处理
-        if resourceIdList is not None or flomo['content'] != "None":
-            ct = int(datetime.strptime(flomo['time'], "%Y-%m-%d %H:%M:%S").timestamp())
+        if resourceIdList is not [] or flomo['content'] != "None":
+            ct = int(time.mktime(datetime.strptime(flomo['time'], "%Y-%m-%d %H:%M:%S").timetuple()))
             msg = "\n".join(flomo['content'])
             msgObject = upMemo(ct, msg, resourceIdList)
             time.sleep(0.5)

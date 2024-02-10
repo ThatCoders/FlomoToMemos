@@ -3,36 +3,28 @@ import requests
 import time
 from memos.util import getType
 
-# 需要修改 Host 与 Cookie.txt
-Host = 'http://xxxxxx'  # 改成你的网址 结尾不要斜杠 例如: https://memos.thatcoder.cn
-# UserName = 'root'  # 登入账号
-# PassWord = '123456'   # 登入密码
-# ApiBase = f'{Host}/api' # 0.12左右的版本
-ApiBase = f'{Host}/api/v1'  # 0.14之后的版本
+# 需要修改 Host 与 token.txt
+Host = 'https://memos.thatcoder.cn'  # 改成你的网址 结尾不要斜杠 例如: https://memos.thatcoder.cn
+ApiBase = f'{Host}/api/v1'
 ApiSignIn = ApiBase + '/auth/signin'
 ApiBlob = ApiBase + '/resource/blob'
 ApiMemo = ApiBase + '/memo'
 
 
-# def signIn():
-#     cookie = requests.post(url=ApiSignIn, json={'username': UserName, 'password': PassWord}, headers=Headers)
-#     cookie = f"access-token={cookie.cookies.get('access-token').strip()}"
-#     with open('Cookie.txt', 'w') as f:
-#         f.write(cookie)
-
 
 def getCookie():
-    with open('Cookie.txt', 'r') as c:
+    with open('token.txt', 'r') as c:
         Cookie = c.read()
     return Cookie
 
 
 Headers = {
-    'Cookie': getCookie(),
+    # 'Cookie': getCookie(),    # 0.18版本左右改为    Authorization验证
     'Accept': 'application/json, text/plain, */*',
     'Content-Type': 'application/json',
     'Referer': f'{Host}/auth',
-    'Origin': Host
+    'Origin': Host,
+    'Authorization': f'Bearer {getCookie()}'
 }
 
 
@@ -51,14 +43,18 @@ def upFile(filePath):
     headers = Headers
     headers['Content-Length'] = str(os.path.getsize("flomo/" + filePath))
     headers['Content-Type'] = f'multipart/form-data; boundary={boundary}'
-    response = requests.post(ApiBlob, headers=headers, data=payload)  # files参数上传方案 requests_toolbelt包
+    response = requests.post(ApiBlob, headers=headers, data=payload)  # files参数上传方案 requests_toolbelt包  有https错误添加参数verify=False
     return response.json()
 
 
 def upMemo(ct, msg, resourceIdList):
+    """
+    memos已不接受时间参数
+    """
     headers = Headers
     data = {
         'createdTs': ct,
+        'updatedTs': ct,
         'content': msg,
         'visibility': 'PRIVATE',
     }
@@ -66,6 +62,8 @@ def upMemo(ct, msg, resourceIdList):
         data['resourceIdList'] = resourceIdList
     response = requests.post(ApiMemo, headers=headers, json=data)
     return response.json()
+
+
 
 
 def deleteMemo(MemoId):
